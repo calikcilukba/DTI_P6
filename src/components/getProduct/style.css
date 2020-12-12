@@ -1,0 +1,12 @@
+/* .sr-only {
+  left: 50%;
+  margin-left: -4em;
+} */
+.normal_price {
+  color: gray;
+  text-decoration: line-through red;
+}
+.price {
+  color: red;
+  font-weight: bold;
+}

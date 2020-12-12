@@ -1,3 +1,4 @@
 export default {
-  LOGIN: '/auth/login',
+  LOGIN: '/api/login',
+  PRODUCT: '/api/product',
 };

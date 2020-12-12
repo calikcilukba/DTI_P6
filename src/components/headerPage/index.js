@@ -4,6 +4,11 @@ import { isUserAuthenticated } from '../../utils/cookie';
 
 const Header = () => {
   const listMenu = ['home', 'profile', 'contact', 'infoCorona'];
+  const logout = () => {
+    document.cookie = 'token= ; expires = Thu, 01 Jan 1970 00:00:00 GMT';
+    document.cookie = 'userData= ; expires = Thu, 01 Jan 1970 00:00:00 GMT';
+    window.location.replace('/');
+  };
   return (
     <div className="header">
       {listMenu.map((name) => {
@@ -13,7 +18,11 @@ const Header = () => {
           </Link>
         );
       })}
-      {isUserAuthenticated() ? <span>logout</span> : <div />}
+      {isUserAuthenticated() ? (
+        <button onClick={logout}>Logout</button>
+      ) : (
+        <div />
+      )}
     </div>
   );
 };

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { setCookie } from '../../utils/cookie';
-import { auth } from '../../services';
-
+// import { auth } from '../../services';
+import axios from 'axios';
 const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -10,20 +10,44 @@ const Login = () => {
 
   const onSubmitLogin = () => {
     setLoginLoading(true);
-    auth
-      .login(username, password)
-      .then((res) => {
-        const cookieToken = res.data.token;
-        const cookieUser = res.data.user;
-        setCookie('userData', JSON.stringify(cookieUser), 10000);
-        setCookie('token', JSON.stringify(cookieToken), 10000);
+    console.log(username, password);
+    axios
+      .post('http://167.99.78.155:8080/api/login', {
+        username: username,
+        password: password,
       })
-      .catch((err) => {
+      .then(function (res) {
+        if (res.data.status == 200) {
+          const cookieToken = res.data.token;
+          const cookieUser = res.data.user;
+          setCookie('userData', JSON.stringify(cookieUser), 10000);
+          setCookie('token', JSON.stringify(cookieToken), 10000);
+          console.log(res.data);
+          window.location.replace('/');
+          // window.location.reload(false);
+        }
+      })
+      .catch(function (err) {
         console.log(err);
       })
       .finally(() => {
         setLoginLoading(false);
       });
+    // auth
+    //   .login(username, password)
+    //   .then((res) => {
+    //     console.log(res.data);
+    //     const cookieToken = res.data.token;
+    //     const cookieUser = res.data.user;
+    //     setCookie('userData', JSON.stringify(cookieUser), 10000);
+    //     setCookie('token', JSON.stringify(cookieToken), 10000);
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   })
+    //   .finally(() => {
+    //     setLoginLoading(false);
+    //   });
   };
 
   return (

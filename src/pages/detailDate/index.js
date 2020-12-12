@@ -27,6 +27,7 @@ const DetailDate = () => {
   const [isLoading, setIsLoading] = useState(false);
   const params = useParams();
   const { dateId } = params;
+  console.log(dateId);
   useEffect(() => {
     setIsLoading(true);
     const db = app.database().ref('news');

@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import app from '../../services/firebase';
 import 'firebase/database';
+import { Spinner } from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Activity = (props) => {
   const { data } = props;
@@ -47,8 +49,11 @@ const CoronaNews = () => {
   return (
     <div className="center_view">
       {isLoading ? (
-        <p>loading</p>
+        <Spinner animation="border" role="status">
+          <span className="sr-only">Loading...</span>
+        </Spinner>
       ) : (
+        // <p>loading</p>
         news.map((newsPerDate) => {
           return <NewsPerDate key={newsPerDate.date} data={newsPerDate} />;
         })
